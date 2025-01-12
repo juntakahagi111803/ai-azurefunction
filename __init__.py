@@ -14,15 +14,20 @@ import os
 import json
 import azure.functions as func
 
+app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
+@app.function_name(name="http_trigger1")
+@app.route(route="http_trigger1")
+
 #環境変数OPENAI_API_KEYからAPIキーを取得して設定します。
-openai.api_key = os.getenv('OPENAI_API_KEY')
+#openai.api_key = os.getenv('OPENAI_API_KEY')
 
 #メイン関数定義 - この関数はHTTPリクエストが来たときに実行されます。
-def main(req: func.HttpRequest) -> func.HttpResponse:
+def http_trigger1(req: func.HttpRequest) -> func.HttpResponse:
 
     #リクエストのログ出力:HTTPトリガー関数がリクエストを処理したことをログに記録します。
     logging.info('Python HTTP trigger function processed a request.')
     
+    user_input = req.params.get('user_input')
     #リクエスト処理の試み:
     #受け取ったリクエストボディをJSON形式で解析し、user_inputを取得します。
     #HTTPリクエストボディからユーザーの入力データ（user_input）を取得するためのものです。
