@@ -1,7 +1,6 @@
 import azure.functions as func
 import os 
 import json
-import openai
 
 app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
 
